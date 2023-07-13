@@ -1,19 +1,17 @@
-name: Chic-Fila
+name: Cypress Tests
+
 on: push
+
 jobs:
-    greet:
-      
-        runs-on: windows-latest
-     
-        steps:
-            # Runs a single command using the runners shell
-            - name: Get code
-              uses: actions/checkout@v3
-            - name: Install NodeJS
-              uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-            - name: Install dependencies
-              run: npm ci
-            - name: run
-              run: npm test
+  cypress-run:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm start
