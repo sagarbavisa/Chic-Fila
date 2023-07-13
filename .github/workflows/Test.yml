@@ -1,15 +1,17 @@
-name: First Workflow
-on:
-       workflow_dispatch:
+name: Cypress Tests
+
+on: push
+
 jobs:
-     greet:
-                 runs-on: windows-latest
-                    steps:
-                        name: Print greeting
-                        run: echo "Hello-World"
-        
-     
-     
-    
-    
-  
+  cypress-run:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install NPM dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: npm run build
+          start: npm start
